@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "main": "jest.config.js",
   "scripts": {
+    "start": "nodemon src/server.ts",
     "test": "jest"
   },
   "keywords": [],
