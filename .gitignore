@@ -128,3 +128,41 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# Local .terraform directories
+**/.terraform/*
+
+# .tfstate files
+*.tfstate
+*.tfstate.*
+
+# .tfvars files
+*.tfvars
+
+# .terraform.lock.hcl files
+.terraform.lock.hcl
+
+# Crash log files
+crash.log
+
+# Ignore CLI configuration files
+terraform.rc
+terraform.rc.json
+
+# Ignore override files as they are usually used to override resources locally and so
+# are not checked in
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Ignore CLI configuration files
+.terraformrc
+terraform.rc
+
+# MacOS files
+.DS_Store
+
+# Windows files
+Thumbs.db
+**/.ssh/
