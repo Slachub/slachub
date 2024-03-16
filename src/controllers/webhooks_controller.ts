@@ -1,6 +1,8 @@
 import { NextFunction, Response, Request } from "express";
 import { Webhook } from "../models/webhook_model";
 import BadRequestError from "../services/error_handler";
+import * as slackService from "../services/slackService";
+import { error } from "console";
 
 
 export const handleWebhook: Webhook = (
@@ -19,4 +21,17 @@ export const handleWebhook: Webhook = (
             })
         );
     }
+};
+
+export const sendToSlack = async (req: Request, res: Response) => {
+	const payload = req.body;
+	try{		
+	 const status = await slackService.updateToSlack(payload);	 
+	  if(!status) {
+         res.status(400).json(error)
+	  } else
+	     res.status(200).json(status);
+	} catch (error) {
+		res.status(400).json({ message: (error as Error).message });
+	}
 };
