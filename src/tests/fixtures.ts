@@ -1,19 +1,17 @@
 export const getSecret = () => "secret";
 
 export const PR_HOOK_HEADER_1 = {
-    "Request URL": "https://smee.io/vhrw2eu5mmTWxxAS",
     "Request method": "POST",
-    Accept: "*/*",
+    "Accept": "*/*",
     "Content-Type": "application/json",
     "User-Agent": "GitHub-Hookshot/7fd3372",
-    "X-GitHub-Delivery": "429f16e0-e46b-11ee-9ce7-f87db9f9000f",
+    "X-GitHub-Delivery": "07944fb0-e49e-11ee-80ee-51ea6a97ca1b",
     "X-GitHub-Event": "pull_request",
     "X-GitHub-Hook-ID": 467130467,
     "X-GitHub-Hook-Installation-Target-ID": 772074151,
     "X-GitHub-Hook-Installation-Target-Type": "repository",
-    "X-Hub-Signature": "sha1=582da2c43fc7d701bff8fa4dc39c4c7b34ef53dc",
-    "X-Hub-Signature-256":
-        "sha256=793432c77acc58918cd9a73680c034df7ccb338516ff335c2be039d7fcb31f3b",
+    "X-Hub-Signature": "sha1=489b9e3e91a821a27f8e2b7fa87d408d482f200b",
+    "X-Hub-Signature-256": "sha256=8f4c79cbf9574087e8a0e3b55561b24fd9d0d319213b19f001491d6e178fbf9e"
 };
 
 export const PR_HOOK_OPENED_1 = {
