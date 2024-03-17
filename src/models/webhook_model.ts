@@ -1,3 +1,4 @@
+import { Request } from "express";
 export interface Webhook {
     action: string
     receivedAt: number
