@@ -5,14 +5,17 @@ import * as dotenv from "dotenv";
 dotenv.config();
 
 export const verifySignature = (req: Request) => {
-    const WEBHOOK_SECRET: string | undefined = process.env.WEBHOOK_SECRET
-    if(!WEBHOOK_SECRET) throw new Error("Secret undefined");
+    const WEBHOOK_SECRET: string | undefined = process.env.WEBHOOK_SECRET;
+    if (!WEBHOOK_SECRET) 
+        return;
 
-    let signature = req.header('X-Hub-Signature')
+    const signature: string | undefined = req.header("x-hub-signature");
+    if (!signature)
+        return;
 
     // Verify the signature
-    let hmac = crypto.createHmac("sha1", WEBHOOK_SECRET)
-    let calculatedSignature = "sha1=" + hmac.update(JSON.stringify(req.body)).digest("hex");
-
-    return calculatedSignature !== signature        
+    const hmac = crypto.createHmac("sha1", WEBHOOK_SECRET);
+    const calculatedSignature =
+        "sha1=" + hmac.update(JSON.stringify(req.body)).digest("hex");
+    return calculatedSignature === signature;
 };

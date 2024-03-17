@@ -16,7 +16,8 @@ export const handleWebhook = async (
     } else {
         next(
             new BadRequestError(403, {
-                message: "Unauthorised"
+                message: "Unauthorised",
+                details: req.body
             })
         );
     }
