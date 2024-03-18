@@ -38,6 +38,7 @@ export const processQueue = async (): Promise<void> => {
             const item = queue.dequeue();
             if (item) {
                 QueueManager.getInstance().getProcessedHooks().push(item);
+                
                 console.log("Processing item:", item);
             }
         }
