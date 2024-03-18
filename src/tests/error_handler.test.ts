@@ -1,7 +1,7 @@
 import request from "supertest";
 import { app } from '../app';
 
-jest.mock("../services/webhooks");
+jest.mock("../services/webhooks_service");
 
 afterEach(() => {
 	jest.clearAllMocks();

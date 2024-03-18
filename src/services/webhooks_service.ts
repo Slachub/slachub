@@ -2,7 +2,7 @@ import { Request } from "express";
 import * as crypto from "crypto";
 import * as dotenv from "dotenv";
 import { Webhook, createHook } from "../models/webhook_model";
-import { QueueManager } from "../queue/queue_mgr";
+import { QueueManager } from "./queue_mgr_service";
 
 dotenv.config();
 const queue = QueueManager.getInstance().getQueue();
@@ -24,7 +24,7 @@ export const verifySignature = (req: Request) => {
     return calculatedSignature === signature;
 };
 
-export const addHookToMgr = async (body: any, headers?: any): Promise<Webhook> => {
+export const queueHook = async (body: any, headers?: any): Promise<Webhook> => {
     const hook: Webhook = createHook(body);
     queue.enqueue(hook);
     return hook;

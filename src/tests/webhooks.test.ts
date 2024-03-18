@@ -5,7 +5,7 @@ import * as dotenv from "dotenv";
 
 dotenv.config();
 
-jest.mock("../services/webhooks");
+jest.mock("../services/webhooks_service");
 
 afterEach(() => {
     jest.clearAllMocks();
