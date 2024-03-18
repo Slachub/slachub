@@ -1,11 +1,12 @@
+import { Request } from "express";
 export interface Webhook {
     action: string
     receivedAt: number
 }
 
-export const createHook = (req: Request): Webhook => {
+export const createHook = (body: any): Webhook => {
     return {
-        action: req.body?.action,
+        action: body.action,
         receivedAt: Date.now()
     }
 }

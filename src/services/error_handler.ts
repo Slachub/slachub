@@ -6,7 +6,8 @@ export interface HTTPError {
 }
 
 export const handle404 = (req: Request, res: Response, next: NextFunction) => {
-	res.status(404).json({ message: `Route not found: ${req.originalUrl}` });
+    const errMesg: string = `Route not found: ${req.originalUrl}`;
+	res.status(404).json({ message: errMesg });
 };
 
 export const errorHandler = (
