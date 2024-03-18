@@ -1,5 +1,5 @@
 import { Webhook } from "../models/webhook_model";
-import { Queue } from "./queue";
+import { Queue } from "../models/queue_model";
 
 // Singleton pattern for Queue instance
 export class QueueManager {
