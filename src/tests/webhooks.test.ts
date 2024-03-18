@@ -10,6 +10,7 @@ jest.mock("../services/webhooks");
 afterEach(() => {
     jest.clearAllMocks();
 });
+
 test("bad github hook authentication", async () => {
     const WEBHOOK_SECRET: string | undefined = process.env.WEBHOOK_SECRET;
     if (!WEBHOOK_SECRET) throw new Error("Secret undefined");
@@ -22,7 +23,7 @@ test("bad github hook authentication", async () => {
     expect(res.statusCode).toEqual(403);
 });
 
-test.only("Verified github hook authentication", async () => {
+test("Verified github hook authentication", async () => {
     const res = await request
         .agent(app)
         .set("x-hub-signature", PR_HOOK_HEADER_1['X-Hub-Signature'])
@@ -33,3 +34,4 @@ test.only("Verified github hook authentication", async () => {
         .send(PR_HOOK_OPENED_1);
     expect(res.statusCode).toEqual(200);
 });
+

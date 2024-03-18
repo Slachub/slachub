@@ -1,9 +1,6 @@
 import { NextFunction, Response, Request } from "express";
-import { createHook, Webhook } from "../models/webhook_model";
 import BadRequestError from "../services/error_handler";
-import { verifySignature } from "../services/webhooks";
-// import { QueueManager } from "../queue/queue_mgr";
-
+import { addHookToMgr, verifySignature } from "../services/webhooks";
 
 export const handleWebhook = async (
     req: Request,
@@ -11,8 +8,9 @@ export const handleWebhook = async (
     next: NextFunction
 ) => {
     if (verifySignature(req)) {
-        const hook: Webhook = createHook(req);
+        // const hook: Webhook = createHook(req.body);
         // QueueManager.getInstance().getQueue().enqueue(hook);
+        const hook  = await addHookToMgr(req.body);
         if(hook)
             res.status(200).send("Success");        
     } else {

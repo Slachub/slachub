@@ -1,8 +1,12 @@
 import { Request } from "express";
 import * as crypto from "crypto";
 import * as dotenv from "dotenv";
+import { Webhook, createHook } from "../models/webhook_model";
+import { QueueManager } from "../queue/queue_mgr";
 
 dotenv.config();
+const queue = QueueManager.getInstance().getQueue();
+
 
 export const verifySignature = (req: Request) => {
     const WEBHOOK_SECRET: string | undefined = process.env.WEBHOOK_SECRET;
@@ -19,3 +23,9 @@ export const verifySignature = (req: Request) => {
         "sha1=" + hmac.update(JSON.stringify(req.body)).digest("hex");
     return calculatedSignature === signature;
 };
+
+export const addHookToMgr = async (body: any, headers?: any): Promise<Webhook> => {
+    const hook: Webhook = createHook(body);
+    queue.enqueue(hook);
+    return hook;
+}

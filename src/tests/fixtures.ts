@@ -12,7 +12,7 @@ export const PR_HOOK_HEADER_1 = {
     "X-GitHub-Hook-Installation-Target-Type": "repository",
     "X-Hub-Signature": "sha1=489b9e3e91a821a27f8e2b7fa87d408d482f200b",
     "X-Hub-Signature-256": "sha256=8f4c79cbf9574087e8a0e3b55561b24fd9d0d319213b19f001491d6e178fbf9e"
-};
+} as const;
 
 export const PR_HOOK_OPENED_1 = {
     action: "opened",
@@ -781,7 +781,7 @@ export const PR_HOOK_OPENED_1 = {
         type: "User",
         site_admin: false,
     },
-};
+} as const;
 
 export const PR_HOOK_CLOSED_1 = {
     action: "closed",
