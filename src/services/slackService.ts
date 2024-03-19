@@ -15,7 +15,7 @@ export const updateToSlack = async (payload: string) => {
     await axios.post(slackWebhookUrl, {
       text: `New data received: ${JSON.stringify(formattedData)}`,
     });
-    console.log("Data sent to Slack successfully");
+    // console.log("Data sent to Slack successfully");
     return true;
   } catch (error) {
     throw new Error("Failed to send data to Slack");
