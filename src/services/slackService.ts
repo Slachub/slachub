@@ -4,16 +4,17 @@ import axios from "axios";
 
 export const updateToSlack = async (payload: string) => {
   try {
-    console.log("Inside Updateto Slack");
+    console.log("Inside Update to Slack");
     const slackWebhookUrl =
-      "https://hooks.slack.com/services/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";  
+      "https://hooks.slack.com/services/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";
     //const quote = await fetchQuote();
     // await axios.post(slackWebhookUrl, { text: quote });
-    const formatData = JSON.parse(payload);   
+    const formatData = JSON.parse(payload);
     console.log(formatData);
-    const formattedData = formatDataToSlack(formatData)
+    const formattedData = formatDataToSlack(formatData);
     await axios.post(slackWebhookUrl, {
-      text: `New data received: ${JSON.stringify(formattedData)}`})
+      text: `New data received: ${JSON.stringify(formattedData)}`,
+    });
     console.log("Data sent to Slack successfully");
     return true;
   } catch (error) {
@@ -22,23 +23,36 @@ export const updateToSlack = async (payload: string) => {
 };
 
 export const formatDataToSlack = (formatData: any) => {
-  const { action, title, state, repositoryName,author,created_at,updated_at, html_url} = formatData;  
+  const {
+    action,
+    title,
+    state,
+    repositoryName,
+    author,
+    created_at,
+    updated_at,
+    html_url,
+  } = formatData;
   const formattedMessage = {
-    text: `Updates from *${author}*`,   
-    attachments: [ 
-           {
-            fields: [
-              {
-                '*Action*': action,'*Repository URL*' : html_url,'*Repository Name*': repositoryName, '*Title*' : title,'*Created*' : created_at, '*Last Updated*' : updated_at,'*State*':state             
-              }            
-            ]
-          }
-        ]   
-      }
-  return formattedMessage
+    text: `Updates from *${author}*`,
+    attachments: [
+      {
+        fields: [
+          {
+            "*Action*": action,
+            "*Repository URL*": html_url,
+            "*Repository Name*": repositoryName,
+            "*Title*": title,
+            "*Created*": created_at,
+            "*Last Updated*": updated_at,
+            "*State*": state,
+          },
+        ],
+      },
+    ],
+  };
+  return formattedMessage;
 };
-
-
 
 // Function to fetch a quote from public API
 async function fetchQuote() {

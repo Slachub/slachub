@@ -1,6 +1,6 @@
 import { Webhook, createHook } from "../models/webhook_model";
 import { Queue } from "../models/queue_model";
-import {updateToSlack} from "../services/slackService"
+import { updateToSlack } from "../services/slackService";
 
 // Singleton pattern for Queue instance
 export class QueueManager {
@@ -40,15 +40,9 @@ export const processQueue = async (): Promise<void> => {
       if (item) {
         QueueManager.getInstance().getProcessedHooks().push(item);
         console.log("Processing item:", item);
-        updateToSlack(JSON.stringify(item))
+        updateToSlack(JSON.stringify(item));
       }
     }
     await new Promise((resolve) => setTimeout(resolve, 250)); // Process item every 250ms. Can remove when system is oerational.
   }
 };
-
-// //To extract only the required details from Github Webhook for and event
-// const extractData = (WebhookPayload: any): Webhook => {
-//   const payload = JSON.parse(WebhookPayload);
-//   return createHook(payload);
-// };
