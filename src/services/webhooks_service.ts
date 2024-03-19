@@ -5,7 +5,8 @@ import { Webhook, createHook } from "../models/webhook_model";
 import { QueueManager } from "./queue_mgr_service";
 
 dotenv.config();
-const queue = QueueManager.getInstance().getQueue();
+const manager = QueueManager.getInstance();
+const queue = manager.getQueue();
 
 export const verifySignature = (req: Request) => {
   const WEBHOOK_SECRET: string | undefined = process.env.WEBHOOK_SECRET;
@@ -23,6 +24,8 @@ export const verifySignature = (req: Request) => {
 };
 
 export const queueHook = async (body: any, headers?: any): Promise<Webhook> => {
+
+  manager.getReceivedHooks().push(body);
   const hook: Webhook = createHook(body);
   queue.enqueue(hook);
   return hook;
