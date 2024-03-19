@@ -9,9 +9,6 @@ export const handleWebhook = async (
     next: NextFunction
 ) => {
     if (verifySignature(req)) {
-        console.log("before calling queue hook")
-        const payload = req.body;
-        console.log(payload)
         const hook = await queueHook(req.body);
         if (hook) res.status(200).send("Success");
     } else {
