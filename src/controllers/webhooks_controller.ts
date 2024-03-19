@@ -9,6 +9,9 @@ export const handleWebhook = async (
     next: NextFunction
 ) => {
     if (verifySignature(req)) {
+        console.log("before calling queue hook")
+        const payload = req.body;
+        console.log(payload)
         const hook = await queueHook(req.body);
         if (hook) res.status(200).send("Success");
     } else {
@@ -21,14 +24,4 @@ export const handleWebhook = async (
     }
 };
 
-export const sendToSlack = async (req: Request, res: Response) => {
-    const payload = req.body;
-    try {
-        const status = await slackService.updateToSlack(payload);
-        if (!status) {
-            res.status(400).json(status);
-        } else res.status(200).json(status);
-    } catch (error) {
-        res.status(400).json({ message: (error as Error).message });
-    }
-};
+
