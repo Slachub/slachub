@@ -6,10 +6,12 @@ export class QueueManager {
     private static instance: QueueManager;
     private queue: Queue<Webhook>;
     private processedHooks: Array<Webhook>;
+    private receivedHooks: Array<Webhook>;
 
     private constructor() {
         this.queue = new Queue<Webhook>(); 
         this.processedHooks =  new Array<Webhook>();
+        this.receivedHooks =  new Array();
     }
 
     public static getInstance(): QueueManager {
@@ -26,20 +28,29 @@ export class QueueManager {
     public getProcessedHooks(): Array<Webhook> {
         return this.processedHooks;
     }
+
+    public getReceivedHooks(): Array<any> {
+        return this.receivedHooks;
+    }
 }
 
 // Worker function to process items from the queue
 export const processQueue = async (): Promise<void> => {
     console.log("Starting Queue Mgr...");
-    const queue = QueueManager.getInstance().getQueue();
+    const manager = QueueManager.getInstance();
+    const queue = manager.getQueue();
 
     while (true) {
         if (!queue.isEmpty()) {
             const item = queue.dequeue();
             if (item) {
-                QueueManager.getInstance().getProcessedHooks().push(item);
-                
                 console.log("Processing item:", item);
+
+                try{
+                    // Call slackService here
+                }catch{}
+
+                manager.getProcessedHooks().push(item);
             }
         }
         await new Promise((resolve) => setTimeout(resolve, 250)); // Process item every 250ms. Can remove when system is oerational.

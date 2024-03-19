@@ -25,6 +25,7 @@ export const verifySignature = (req: Request) => {
 };
 
 export const queueHook = async (body: any, headers?: any): Promise<Webhook> => {
+    QueueManager.getInstance().getReceivedHooks().push(body);
     const hook: Webhook = createHook(body);
     queue.enqueue(hook);
     return hook;
