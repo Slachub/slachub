@@ -17,7 +17,7 @@ describe("adding to queue", () => {
 
 describe("test queue mgr", () => {
     const queue = QueueManager.getInstance().getQueue();
-    const hook: Webhook = createHook({ action: PR_HOOK_OPENED_1.action });
+    const hook: Webhook = createHook({ action: PR_HOOK_OPENED_1});
 
     it("should have one item in the queue", () => {
         queue.enqueue(hook);
