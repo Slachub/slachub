@@ -49,15 +49,20 @@ describe("POST payload data into Slack", () => {
 const dummyLog = [];
 
 describe("View a log of processed webhooks", () => {
-  test("Return an empty array when nothing has been processed", async () => {
+  test("Return empty arrays when nothing has been processed", async () => {
     // Arrange
-    jest.spyOn(logService, "viewLog").mockResolvedValue([]);
+    jest.spyOn(logService, "viewLog").mockResolvedValue({
+      processedHooks: [],
+      receivedHooks: [],
+    });
 
     // Act
     const res = await request(app).get("/api/v1/log");
 
     // Assert
-    expect(res.body).toEqual([]);
-    expect(res.body.length).toEqual(0);
+    expect(res.body).toEqual({
+      processedHooks: [],
+      receivedHooks: [],
+    });
   });
 });
