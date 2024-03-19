@@ -36,6 +36,7 @@ resource "google_compute_instance" "example_server" {
     ssh-keys = <<-EOT
       pi:${file(".ssh/pi.pub")}
       ramya:${file(".ssh/ramya.pub")}
+      stu:${file(".ssh/stu.pub")}
     EOT
   }
 }
