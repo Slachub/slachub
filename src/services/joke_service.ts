@@ -16,9 +16,7 @@ export async function fetchJoke(): Promise<Joke | undefined> {
       return joke;
     })
     .catch((error) => {
-      console.error("Error fetching joke:", error);
-      // throw new Error("Failed to fetch quote");
-      return undefined;
+      throw new Error("Failed to fetch joke");
     });
   return joke;
 }

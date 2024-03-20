@@ -27,11 +27,22 @@ describe("Adding a joke to the Slack Message", () => {
 });
 
 describe("Getting a joke from the API", () => {
-  test("should first", async () => {
+  test("should return a joke when the API is reached successfully", async () => {
     jest.spyOn(jokeService, "fetchJoke").mockResolvedValue(joke);
 
     const returnedJoke = await jokeService.fetchJoke();
 
     expect(returnedJoke).toEqual(joke);
+  });
+
+  test("should throw an error when the API cannot be reached", async () => {
+    jest
+      .spyOn(jokeService, "fetchJoke")
+      .mockRejectedValue(new Error("Failed to fetch joke"))
+      .mockResolvedValue(undefined);
+
+    const returnedJoke = await jokeService.fetchJoke();
+
+    expect(returnedJoke).toBe(undefined);
   });
 });
