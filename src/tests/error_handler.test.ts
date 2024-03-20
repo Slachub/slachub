@@ -14,4 +14,3 @@ test("status code successfully 404 for a book that is not found", async () => {
     // Assert
     expect(res.statusCode).toEqual(404);
 });
-

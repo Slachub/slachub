@@ -1,6 +1,6 @@
 export const getSecret = () => "secret";
 
-export const PR_HOOK_HEADER_1 = {
+export const PR_HOOK_HEADER_1: Record<string, string | number> = {
     "Request method": "POST",
     "Accept": "*/*",
     "Content-Type": "application/json",
@@ -1464,7 +1464,7 @@ export const PR_HOOK_CLOSED_1 = {
         type: "User",
         site_admin: false,
     },
-};
+} as const;
 
 export const PR_HOOK_REVIEW_1 = {
     action: "review_requested",
@@ -2257,7 +2257,7 @@ export const PR_HOOK_REVIEW_1 = {
         type: "User",
         site_admin: false,
     },
-};
+} as const;
 
 export const PR_HOOK_COMMENT_1 = {
     action: "created",
@@ -2620,4 +2620,15 @@ export const PR_HOOK_COMMENT_1 = {
         type: "User",
         site_admin: false,
     },
-};
+} as const;
+
+export const WEBHOOK_JSON_STR_1 = '{"action": "closed", "title": "slachub", "author": "Ramya", "html_url": "https://github.com/slachub", "repositoryName": "slachub"}';
+
+export const FORMATTED_SLACK_MSG_1 = "💡 There's been a new *Pull Request* closed by Ramya called _<https://github.com/slachub|slachub>_ in the slachub repo. Nice work!";
+
+export const JOKE_1 =   {
+    "type": "programming",
+    "setup": "Which song would an exception sing?",
+    "punchline": "Can't catch me - Avicii",
+    "id": 33
+  }

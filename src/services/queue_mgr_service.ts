@@ -37,7 +37,7 @@ export class QueueManager {
 
 // Worker function to process items from the queue
 export const processQueue = async (): Promise<void> => {
-  console.log("Starting Queue Mgr...");
+//   console.log("Starting Queue Mgr...");
   const manager = QueueManager.getInstance();
   const queue = manager.getQueue();
 

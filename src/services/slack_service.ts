@@ -1,7 +1,4 @@
-import { NextFunction, Response, Request } from "express";
-import { Webhook } from "../models/webhook_model";
-import axios from "axios";
-import * as dotenv from "dotenv";
+
 import { fetchJoke, Joke } from "./joke_service";
 
 export const updateToSlack = async (payload: string) => {
@@ -16,10 +13,19 @@ export const updateToSlack = async (payload: string) => {
       formattedText = addAJoke(formattedText, joke);
     }
 
-    await axios.post(slackWebhookUrl, {
-      text: formattedText,
-    });
-    return true;
+    const opts = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            text: formattedText,
+          })
+      };
+    const response = await fetch(slackWebhookUrl, opts);
+
+    return response.status == 200;
+    // console.log("Data sent to Slack successfully");
   } catch (error) {
     throw new Error("Failed to send data to Slack");
   }
