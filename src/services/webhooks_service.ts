@@ -9,7 +9,6 @@ const manager = QueueManager.getInstance();
 const queue = manager.getQueue();
 
 export const verifySignature = (req: any): boolean | undefined=> {
-    console.log("innn")
   const WEBHOOK_SECRET: string | undefined = process.env.WEBHOOK_SECRET;
   if (!WEBHOOK_SECRET) return;
 
