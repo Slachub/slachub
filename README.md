@@ -47,11 +47,15 @@ We assumed it would be just as easy to handle Github webhooks and the Slack API 
 
 ## Approaches
 
-We brought an approach that prioritised unit testing and an MVC architecture.
+As a team, we worked democratically, with daily standups, peer-support, and plenty of discussion.
+
+We brought an approach that prioritised unit testing and an MVC architecture. We utilised branches and pull requests to make changes and update the repo as we collaborated.
 
 The approach to receiving the webhooks was to put them into a queue (FIFO), as a way to handle cases where multiple webhooks could be fired simultaneously, and to ensure all webhooks we wanted to process are processed. For this sample project, we left the queue as an object in memory.
 
 Once the item in the queue was being processed, the approach used was to isolate the service so that it could be tested independently, using Jest tests and mocking.
+
+We used Github actions to build the Docker image and deploy it to Dockerhub, which allowed the server to be configured to easily pull new images, in order to deploy the updates as they were made to the main branch.
 
 ## Future Thoughts
 
