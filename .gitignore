@@ -166,3 +166,4 @@ terraform.rc
 # Windows files
 Thumbs.db
 **/.ssh/
+.vscode/

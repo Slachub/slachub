@@ -8,12 +8,12 @@ dotenv.config();
 const manager = QueueManager.getInstance();
 const queue = manager.getQueue();
 
-export const verifySignature = (req: Request) => {
+export const verifySignature = (req: any): boolean | undefined=> {
+    console.log("innn")
   const WEBHOOK_SECRET: string | undefined = process.env.WEBHOOK_SECRET;
-
   if (!WEBHOOK_SECRET) return;
 
-  const signature: string | undefined = req.header("x-hub-signature");
+  const signature: string | undefined = req.headers["x-hub-signature"];
   if (!signature) return;
 
   // Verify the signature
@@ -24,7 +24,6 @@ export const verifySignature = (req: Request) => {
 };
 
 export const queueHook = async (body: any, headers?: any): Promise<Webhook> => {
-
   manager.getReceivedHooks().push(body);
   const hook: Webhook = createHook(body);
   queue.enqueue(hook);
