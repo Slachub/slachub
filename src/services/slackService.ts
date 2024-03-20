@@ -1,12 +1,11 @@
 import { NextFunction, Response, Request } from "express";
 import { Webhook } from "../models/webhook_model";
 import axios from "axios";
+import * as dotenv from "dotenv";
 
 export const updateToSlack = async (payload: string) => {
   try {
-    console.log("Inside Update to Slack");
-    const slackWebhookUrl =
-      "https://hooks.slack.com/services/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";
+    const slackWebhookUrl: string = process.env.SLACK_WEBHOOK_URL ?? "";
     //const quote = await fetchQuote();
     // await axios.post(slackWebhookUrl, { text: quote });
     const formatData = JSON.parse(payload);
