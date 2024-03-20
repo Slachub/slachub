@@ -8,10 +8,10 @@ export const updateToSlack = async (payload: string) => {
     const slackWebhookUrl: string = process.env.SLACK_WEBHOOK_URL ?? "";
     //const quote = await fetchQuote();
     // await axios.post(slackWebhookUrl, { text: quote });
-    const formatData = JSON.parse(payload);   
-    const formattedData = formatDataToSlack(formatData);
+    const formatData = JSON.parse(payload);
+    const formattedText = formatText(formatData);
     await axios.post(slackWebhookUrl, {
-      text: `New data received: ${JSON.stringify(formattedData)}`,
+      text: formattedText,
     });
     // console.log("Data sent to Slack successfully");
     return true;
@@ -20,36 +20,10 @@ export const updateToSlack = async (payload: string) => {
   }
 };
 
-export const formatDataToSlack = (formatData: any) => {
-  const {
-    action,
-    title,
-    state,
-    repositoryName,
-    author,
-    created_at,
-    updated_at,
-    html_url,
-  } = formatData;
-  const formattedMessage = {
-    text: `Updates from *${author}*`,
-    attachments: [
-      {
-        fields: [
-          {
-            "*Action*": action,
-            "*Repository URL*": html_url,
-            "*Repository Name*": repositoryName,
-            "*Title*": title,
-            "*Created*": created_at,
-            "*Last Updated*": updated_at,
-            "*State*": state,
-          },
-        ],
-      },
-    ],
-  };
-  return formattedMessage;
+export const formatText = (formatData: any) => {
+  const { action, title, author, repositoryName, html_url } = formatData;
+  let text = `💡 There's been a new *Pull Request* ${action} by ${author} called _<${html_url}|${title}>_ in the ${repositoryName} repo.`;
+  return text;
 };
 
 // Function to fetch a quote from public API
