@@ -39,7 +39,7 @@ Check the existing instance: `docker ps`
 
 Stop the existing instance: `docker stop [Instance name]`
 
-Launch the server: `docker run -d -p 8080:3000 vmatekole/slachub`
+Launch the server: `docker run -e WEBHOOK_SECRET=secret -e SLACK_WEBHOOK_URL=url -d -p 8080:3000 vmatekole/slachub`
 
 ## Assumptions
 
