@@ -1,5 +1,6 @@
-import { Webhook } from "../models/webhook_model";
+import { Webhook, createHook } from "../models/webhook_model";
 import { Queue } from "../models/queue_model";
+import { updateToSlack } from "./slack_service";
 
 // Singleton pattern for Queue instance
 export class QueueManager {
@@ -44,9 +45,9 @@ export const processQueue = async (): Promise<void> => {
     if (!queue.isEmpty()) {
       const item = queue.dequeue();
       if (item) {
-        console.log("Processing item:", item);
-
+        console.log("Processing item:");
         manager.getProcessedHooks().push(item);
+        updateToSlack(JSON.stringify(item));
       }
     }
     await new Promise((resolve) => setTimeout(resolve, 250)); // Process item every 250ms. Can remove when system is oerational.
