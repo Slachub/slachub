@@ -20,8 +20,20 @@ Finally, the health of the application can be viewed: http://35.243.247.227:8080
 
 ## Assumptions
 
-Little did we know the headaches we would get in around authentication, both to verify that it was actually Github sending the webhook POST to our API, and to be able to communicate with Slack!
+We assumed it would be just as easy to handle Github webhooks and the Slack API (requiring authentication) as it would have been to work with the data from more public APIs!
 
 ## Approaches
 
+We brought an approach that prioritised unit testing and an MVC architecture.
+
+The approach to receiving the webhooks was to put them into a queue (FIFO), as a way to handle cases where multiple webhooks could be fired simultaneously, and to ensure all webhooks we wanted to process are processed. For this sample project, we left the queue as an object in memory.
+
+Once the item in the queue was being processed, the approach used was to isolate the service so that it could be tested independently, using Jest tests and mocking.
+
 ## Future Thoughts
+
+Giving the app more resilience could be accomplished by storing the queue in a database 'on disk'. Such persistent storage could be used to bring resilience both if the Slachub app were to fail, or in the case of the Slack service going down.
+
+The functionality could be easily extended to include alerts triggered by other Github events, like push, commits, issues etc.
+
+Another idea would be to auto-update (i.e. close) Github issues when PRs are merged, and further, for the corresponding cards in Github Projects to update their status, for example, to be moved to "In Progress" when a branch is created, and to "Done" when the PR merged/Issue closed.
