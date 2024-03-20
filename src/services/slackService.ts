@@ -11,15 +11,23 @@ export const updateToSlack = async (payload: string) => {
     // await axios.post(slackWebhookUrl, { text: quote });
     const formatData = JSON.parse(payload);
     console.log(formatData);
-    const formattedData = formatDataToSlack(formatData);
+    // const formattedData = formatDataToSlack(formatData);
+    const formattedText = formatText(formatData);
     await axios.post(slackWebhookUrl, {
-      text: `New data received: ${JSON.stringify(formattedData)}`,
+      // text: `New data received: ${JSON.stringify(formattedData)}`,
+      text: formattedText,
     });
     // console.log("Data sent to Slack successfully");
     return true;
   } catch (error) {
     throw new Error("Failed to send data to Slack");
   }
+};
+
+export const formatText = (formatData: any) => {
+  const { action, title, author, repositoryName, html_url } = formatData;
+  let text = `There's been a new *Pull Request* ${action} by ${author} called _[${title}](${html_url})_ in the ${repositoryName} repo.`;
+  return text;
 };
 
 export const formatDataToSlack = (formatData: any) => {
