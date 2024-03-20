@@ -18,6 +18,29 @@ Additionally, a log of all the received webhooks and the relevant data once it h
 
 Finally, the health of the application can be viewed: http://35.243.247.227:8080/api/v1/log
 
+## Installation
+
+Clone the repo.
+
+`npm install`
+
+Make sure to set up the environment variables:
+
+1. `WEBHOOK_SECRET`
+2. `SLACK_WEBHOOK_URL`
+
+### Deployment
+
+SSH into the server: `ssh [user]@35.243.247.227`
+
+Pull the image from Dockerhub: `docker pull vmatekole/slachub`
+
+Check the existing instance: `docker ps`
+
+Stop the existing instance: `docker stop [Instance name]`
+
+Launch the server: `docker run -d -p 8080:3000 vmatekole/slachub`
+
 ## Assumptions
 
 We assumed it would be just as easy to handle Github webhooks and the Slack API (requiring authentication) as it would have been to work with the data from more public APIs!
