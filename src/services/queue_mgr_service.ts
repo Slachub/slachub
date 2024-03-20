@@ -45,7 +45,6 @@ export const processQueue = async (): Promise<void> => {
     if (!queue.isEmpty()) {
       const item = queue.dequeue();
       if (item) {
-        console.log("Processing item:");
         manager.getProcessedHooks().push(item);
         updateToSlack(JSON.stringify(item));
       }

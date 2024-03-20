@@ -2,14 +2,20 @@ import { NextFunction, Response, Request } from "express";
 import { Webhook } from "../models/webhook_model";
 import axios from "axios";
 import * as dotenv from "dotenv";
+import { fetchJoke, Joke } from "./joke_service";
 
 export const updateToSlack = async (payload: string) => {
   try {
     const slackWebhookUrl: string = process.env.SLACK_WEBHOOK_URL ?? "";
-    //const quote = await fetchQuote();
+    const joke = await fetchJoke();
     // await axios.post(slackWebhookUrl, { text: quote });
     const formatData = JSON.parse(payload);
-    const formattedText = formatText(formatData);
+
+    let formattedText = formatText(formatData);
+    if (joke) {
+      formattedText = addAJoke(formattedText, joke);
+    }
+
     await axios.post(slackWebhookUrl, {
       text: formattedText,
     });
@@ -22,20 +28,12 @@ export const updateToSlack = async (payload: string) => {
 
 export const formatText = (formatData: any) => {
   const { action, title, author, repositoryName, html_url } = formatData;
-  let text = `💡 There's been a new *Pull Request* ${action} by ${author} called _<${html_url}|${title}>_ in the ${repositoryName} repo.`;
+  let text = `💡 There's been a new *Pull Request* ${action} by ${author} called _<${html_url}|${title}>_ in the ${repositoryName} repo. Nice work!`;
   return text;
 };
 
-// Function to fetch a quote from public API
-async function fetchQuote() {
-  try {
-    const response = await axios.get(
-      "https://quotes.rest/qod?category=inspire"
-    );
-    const quote = response.data.contents.quotes[0];
-    return `${quote.quote} - ${quote.author}`;
-  } catch (error) {
-    console.error("Error fetching quote:", error);
-    throw new Error("Failed to fetch quote");
-  }
+export function addAJoke(text: string, joke: Joke): string {
+  let mrkdwn =
+    text + `\n *Joke of the PR* 🤖 ${joke.setup} ... 👉 ${joke.punchline} 🤣🙄`;
+  return mrkdwn;
 }
