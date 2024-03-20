@@ -1,7 +1,7 @@
 import request from "supertest";
 import { app } from "../app";
 import { Webhook } from "../models/webhook_model";
-import * as slackService from "../services/slackService";
+import * as slackService from "../services/slack_service";
 import * as logService from "../services/log";
 
 jest.mock("../services/slackService");
@@ -34,7 +34,7 @@ describe("POST payload data into Slack", () => {
     const testPayload = payload[0].pull_request.body;
     // Act
     const response = await request(app)
-      .post("/send-message-to-slack")
+      .post("/api/v1/hooks")
       .send({ message: testPayload });
 
     // Assert

@@ -1,7 +1,7 @@
 import { NextFunction, Response, Request } from "express";
 import BadRequestError from "../services/error_handler";
 import { queueHook, verifySignature } from "../services/webhooks_service";
-import * as slackService from "../services/slackService";
+import * as slackService from "../services/slack_service";
 import * as logsService from "../services/log";
 
 export const handleWebhook = async (

@@ -8,8 +8,7 @@ export const updateToSlack = async (payload: string) => {
     const slackWebhookUrl: string = process.env.SLACK_WEBHOOK_URL ?? "";
     //const quote = await fetchQuote();
     // await axios.post(slackWebhookUrl, { text: quote });
-    const formatData = JSON.parse(payload);
-    console.log(formatData);
+    const formatData = JSON.parse(payload);   
     const formattedData = formatDataToSlack(formatData);
     await axios.post(slackWebhookUrl, {
       text: `New data received: ${JSON.stringify(formattedData)}`,
