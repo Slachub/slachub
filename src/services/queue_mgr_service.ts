@@ -7,7 +7,7 @@ export class QueueManager {
   private static instance: QueueManager;
   private queue: Queue<Webhook>;
   private processedHooks: Array<Webhook>;
-  private receivedHooks: Array<Webhook>;
+  private receivedHooks: Array<any>;
 
   private constructor() {
     this.queue = new Queue<Webhook>();
