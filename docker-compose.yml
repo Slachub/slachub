@@ -1,0 +1,9 @@
+version: '3.2'
+services:
+  slachub:
+    image: vmatekole/slachub
+    ports:
+      - "8080:3000"
+    environment:
+      - WEBHOOK_SECRET: "WEBHOOK_SECRET"
+      - SLACK_WEBHOOK_URL: "SLACK_WEBHOOK_URL"
